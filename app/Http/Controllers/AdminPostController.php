@@ -40,7 +40,7 @@ class AdminPostController extends Controller
         ]);
         $validatedData['user_id'] = auth()->user()->id;
         if($request->hasFile('image')) {
-            $validatedData['image'] = $request->file('image')->store('public/images');
+            $validatedData['image'] = basename($request->file('image')->store('public/images'));
         }
         if(auth()->user()->role == 'admin' || auth()->user()->role == 'super-admin') {
             Post::create($validatedData);
