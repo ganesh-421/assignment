@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
 class AdminPostController extends Controller
@@ -73,13 +74,18 @@ class AdminPostController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        if(auth()->user()->role == 'super-admin')
-        {
-            Post::where('id', $id)->update([
+        try {
+
+            $post  = Post::find($id);
+            $this->authorize('update', $post);
+            $post->update([
                 'approved' => true
             ]);
-        } else {
-            return redirect()->back()->with('error', 'you are not authorized to aprove posts');
+            return redirect()->back()->with('success', 'Post approved');
+        } catch(\Exception $e)
+        {
+            dd($e);
+            throw new AuthorizationException("you are not authorized to approve post", 403);
         }
     }
     /**

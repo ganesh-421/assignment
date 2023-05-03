@@ -31,7 +31,7 @@
                     @csrf
                     <div class="form-outline mb-2">
                         <input name="name" type="text" class="form-control" value="{{ old('name') }}" />
-                        <label class="form-label" for="name">Email address</label>
+                        <label class="form-label" for="name">Name</label>
                         @error('name')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -48,7 +48,7 @@
                             aria-label="Default select example">
                             <option selected>---select role---</option>
                             <option value="admin">Admin</option>
-                            <option value="super-admin">Suoer Admin</option>
+                            <option value="super-admin">Super Admin</option>
                             <option value="user">User</option>
                         </select>
                         <label class="form-label" for="form1Example2">Select role</label>

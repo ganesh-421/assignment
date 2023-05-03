@@ -56,7 +56,9 @@
                         <th>S.n.</th>
                         <th>Title</th>
                         <th>Body</th>
-                        <th>Actions</th>
+                        @can('update', $posts->first())
+                            <th>Actions</th>
+                        @endcan
                     </thead>
                     <tbody>
                         @if ($posts->count() == 0)
@@ -64,6 +66,7 @@
                                 <td colspan="4" class="text-center">No Posts Found</td>
                             </tr>
                         @else
+                            {{-- @dd(auth()->user()->role) --}}
                             @foreach ($posts as $post)
                                 <tr>
                                     <td>{{ $post->id }}</td>
@@ -73,7 +76,11 @@
                                         <form action="/admin/posts/{{ $post->id }}" method="POST">
                                             @csrf
                                             @method('patch')
-                                            <button type="submit" class="btn btn-secondary btn-sm">approve</button>
+                                            @can('update', $post)
+                                                @if (!$post->approved)
+                                                    <button type="submit" class="btn btn-secondary btn-sm">approve</button>
+                                                @endif
+                                            @endcan
                                         </form>
                                     </td>
                                 </tr>

@@ -22,6 +22,6 @@ Route::post('/login', [SessionController::class, 'store']);
 Route::get('/logout', [SessionController::class, 'destroy'])->name('logout');
 Route::get('/register', [RegisterController::class, 'create']);
 Route::post('/register', [RegisterController::class, 'store']);
-Route::middleware('can:admin|super-admin')->group(function() {
+Route::middleware(['auth', 'can:adminOrSuperAdmin'])->group(function() {
     Route::resource('/admin/posts', AdminPostController::class);
 });

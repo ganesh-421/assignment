@@ -8,6 +8,7 @@
             <div class="col-md-12">
 
                 <!-- Blog Post 1 -->
+                {{-- @dd(auth()->user()->role) --}}
                 @php
                     $half = count($posts) / 2;
                 @endphp
